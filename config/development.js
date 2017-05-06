@@ -16,18 +16,20 @@ var developmentConfig = {
         master_database: {
             init:true,
             host: "localhost",
+            port:"3307",
             connectionLimit: 20,
             user: "root",
-            password: "",
+            password: "root",
             database: "test",
             multipleStatements: true
         },
         slave_database: {
             init:true,
             host: "localhost",
+            port:"3307",
             connectionLimit: 20,
             user: "root",
-            password: "",
+            password: "root",
             database: "test",
             multipleStatements: true
         }

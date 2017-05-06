@@ -16,6 +16,7 @@ var productionConfig = {
         master_database: {
             init: true,
             host: "localhost",
+            port:"3307",
             connectionLimit: 20,
             user: "root",
             password: "",
@@ -25,6 +26,7 @@ var productionConfig = {
         slave_database: {
             init: true,
             host: "localhost",
+            port:"3307",
             connectionLimit: 20,
             user: "root",
             password: "",

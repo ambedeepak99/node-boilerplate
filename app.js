@@ -27,6 +27,7 @@ global._fs = require('fs');
 global._constants = require('./lib/constants');
 global._config = require('./config/appConfig');
 global._logger = require('./lib/logger/winstonLogger');
+global._mysqlClient=require('./lib/db_connect/mysqlConnect');
 //endregion
 
 app.use('/', index);
