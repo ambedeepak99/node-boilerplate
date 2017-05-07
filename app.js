@@ -29,9 +29,11 @@ global._async = require('async');
 global._constants = require('./lib/constants');
 global._config = require('./config/appConfig');
 global._logger = require('./lib/logger/winstonLogger');
+global._mailer=require('./lib/contact/mailer');
 global._mysqlConnections = require('./lib/db_connect/mysqlConnect');
 global._mongoConnections = require('./lib/db_connect/mongoConnect');
 global._redisConnections = require('./lib/db_connect/redisConnect');
+global._utils=require("./lib/utils");
 //endregion
 
 app.use('/', index);
@@ -55,9 +57,9 @@ app.use(function (err, req, res, next) {
 });
 
 process.on('uncaughtException', function (err) {
-        _logger.error("##### SERVER CRASH #####"
+        _logger.error(" ##### SERVER CRASH ##### \n"
             , err,
-            "########## END ##########");
+            "\n ########## END ##########");
     }
 );
 
