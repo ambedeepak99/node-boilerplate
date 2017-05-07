@@ -24,10 +24,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //region global variable
 global._fs = require('fs');
+global._ = require('underscore');
+global._async = require('async');
 global._constants = require('./lib/constants');
 global._config = require('./config/appConfig');
 global._logger = require('./lib/logger/winstonLogger');
-global._mysqlClient=require('./lib/db_connect/mysqlConnect');
+global._mysqlConnections = require('./lib/db_connect/mysqlConnect');
+global._mongoConnections = require('./lib/db_connect/mongoConnect');
 //endregion
 
 app.use('/', index);
@@ -51,9 +54,9 @@ app.use(function (err, req, res, next) {
 });
 
 process.on('uncaughtException', function (err) {
-    _logger.error("##### SERVER CRASH #####"
-        ,err,
-        "########## END ##########");
+        _logger.error("##### SERVER CRASH #####"
+            , err,
+            "########## END ##########");
     }
 );
 
