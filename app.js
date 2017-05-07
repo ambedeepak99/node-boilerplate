@@ -31,6 +31,7 @@ global._config = require('./config/appConfig');
 global._logger = require('./lib/logger/winstonLogger');
 global._mysqlConnections = require('./lib/db_connect/mysqlConnect');
 global._mongoConnections = require('./lib/db_connect/mongoConnect');
+global._redisConnections = require('./lib/db_connect/redisConnect');
 //endregion
 
 app.use('/', index);
