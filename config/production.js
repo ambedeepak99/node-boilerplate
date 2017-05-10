@@ -14,9 +14,9 @@ var productionConfig = {
     },
     mysqlConfig: {
         master_database: {
-            init: true,
+            init: false,
             host: "localhost",
-            port:"3307",
+            port:"3306",
             connectionLimit: 20,
             user: "root",
             password: "",
@@ -24,9 +24,9 @@ var productionConfig = {
             multipleStatements: true
         },
         slave_database: {
-            init: true,
+            init: false,
             host: "localhost",
-            port:"3307",
+            port:"3306",
             connectionLimit: 20,
             user: "root",
             password: "",
@@ -36,7 +36,7 @@ var productionConfig = {
     },
     mongoConfig: {
         testMongoDb: {
-            init: true,
+            init: false,
             host: "mongodb://localhost:27017/mongo_done",
             collection: {
                 test: "test"

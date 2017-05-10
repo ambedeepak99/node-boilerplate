@@ -1,10 +1,23 @@
-var express = require('express');
-var router = express.Router();
+module.exports = function (app) {
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  _utils.send(res,2000,"hello","hello","hello");
-  //res.render('index', { title: 'Express' });
-});
+    //region Initializing Route
+    _logger.debug("Initializing Routes");
 
-module.exports = router;
+    //region Routes Without Authentication
+    app.use('/user/', require('./routes_helper/userRoute'));
+
+    //endregion
+
+    //region Routes With Authentication
+    app.use('/v1/', authRoutes());
+
+    function authRoutes()
+    {
+        app.use('/user/',require('./routes_helper/userRoute'));
+    };
+    //endregion
+
+    _logger.debug("Initializing Routes Completed");
+    //endregion
+
+};
