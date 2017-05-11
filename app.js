@@ -4,9 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var index = require('./routes/index');
-
 var app = express();
 
 // view engine setup
@@ -29,14 +26,17 @@ global._async = require('async');
 global._constants = require('./lib/constants');
 global._config = require('./config/appConfig');
 global._logger = require('./lib/logger/winstonLogger');
-global._mailer=require('./lib/contact/mailer');
+global._mailer = require('./lib/contact/mailer');
 global._mysqlConnections = require('./lib/db_connect/mysqlConnect');
 global._mongoConnections = require('./lib/db_connect/mongoConnect');
 global._redisConnections = require('./lib/db_connect/redisConnect');
-global._utils=require("./lib/utils");
+global._utils = require("./lib/utils");
 //endregion
 
-app.use('/', index);
+var auth = require('./lib/authenticate/auth');
+//app.use('/v1/', require('./routes')(app));
+app.all(_config.authAlias + '/*', [auth.authenticate]);
+var router = require('./routes')(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

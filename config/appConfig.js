@@ -9,6 +9,7 @@ var mergeJSON = require('deepmerge');
  * @type {{}}
  */
 var config = {
+    authAlias:"/v1",
     logConfig:{
         datePattern:".yyyy-MM-dd.HH-mm"
     }
