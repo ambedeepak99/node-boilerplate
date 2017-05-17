@@ -6,10 +6,12 @@ var prodConfig = require('./production');
 var mergeJSON = require('deepmerge');
 /**
  *
- * @type {{}}
+ * @type {{authAlias: string, logConfig: {datePattern: string}}}
  */
 var config = {
-    authAlias:"/v1",
+    authAlias:{
+        basic:"/v1"
+    },
     logConfig:{
         datePattern:".yyyy-MM-dd.HH-mm"
     }

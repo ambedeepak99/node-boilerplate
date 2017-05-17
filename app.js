@@ -35,7 +35,7 @@ global._utils = require("./lib/utils");
 
 var auth = require('./lib/authenticate/auth');
 //app.use('/v1/', require('./routes')(app));
-app.all(_config.authAlias + '/*', [auth.authenticate]);
+app.all(_config.authAlias.basic + '/*', [auth.authenticate]);
 var router = require('./routes')(app);
 
 // catch 404 and forward to error handler

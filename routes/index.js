@@ -1,5 +1,6 @@
 module.exports = function (app) {
 
+    var authAlias = _config.authAlias;
     //region Initializing Route
     _logger.debug("Initializing Routes");
 
@@ -9,8 +10,8 @@ module.exports = function (app) {
     //endregion
 
     //region Authentication Route
-    var auth = _config.authAlias;
-    app.use(auth + '/sample/', require('./routes_helper/sampleRoute'));
+
+    app.use(authAlias.basic + '/sample/', require('./routes_helper/sampleRoute'));
 
     //endregion
 
