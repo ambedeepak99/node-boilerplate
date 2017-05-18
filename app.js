@@ -20,6 +20,7 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //region global variable
+global._globalDir = __dirname;
 global._fs = require('fs');
 global._ = require('underscore');
 global._async = require('async');

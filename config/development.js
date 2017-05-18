@@ -36,8 +36,8 @@ var developmentConfig = {
     },
     mongoConfig: {
         testMongoDb: {
-            init:false,
-            host: "mongodb://localhost:27017/mongo_done",
+            init:true,
+            host: "mongodb://localhost:27017/testMongoDb",
             collection: {
                 test:"test"
             }

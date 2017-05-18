@@ -2,8 +2,13 @@
  * Created by deepak on 5/10/2017.
  */
 var responseMsgs = _constants.MESSAGES;
-var SampleCtrl = {};
-
+var sampleCtrl = {};
+//var outFile=require('../../out/index.html');
+/**
+ * Sample get request
+ * @param request
+ * @param response
+ */
 function getSampleRequest(request, response) {
     var data = {
         service_type: "SAMPLE GET REQUEST",
@@ -16,8 +21,12 @@ function getSampleRequest(request, response) {
     }
     _utils.send(response, responseMsgs.SUCCESS.code, responseMsgs.SUCCESS.message, data);
 };
-SampleCtrl.getSampleRequest = getSampleRequest;
-
+sampleCtrl.getSampleRequest = getSampleRequest;
+/**
+ * Sample post request
+ * @param request
+ * @param response
+ */
 function postSampleRequest(request, response) {
     var data = {
         service_type: "SAMPLE POST REQUEST",
@@ -25,6 +34,6 @@ function postSampleRequest(request, response) {
     };
     _utils.send(response, responseMsgs.SUCCESS.code, responseMsgs.SUCCESS.message, data);
 };
-SampleCtrl.postSampleRequest = postSampleRequest;
+sampleCtrl.postSampleRequest = postSampleRequest;
 
-module.exports = SampleCtrl;
+module.exports = sampleCtrl;
