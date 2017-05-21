@@ -2,6 +2,7 @@
  * Created by deepak on 5/10/2017.
  */
 var responseMsgs = _constants.MESSAGES;
+var auth = require('../../lib/authenticate/auth');
 var sampleCtrl = {};
 //var outFile=require('../../out/index.html');
 /**
@@ -19,6 +20,7 @@ function getSampleRequest(request, response) {
     for (var key in request.query) {
         data.request_query_data[key] = request.query[key];
     }
+    data.token=auth.generateToken(data);
     _utils.send(response, responseMsgs.SUCCESS.code, responseMsgs.SUCCESS.message, data);
 };
 sampleCtrl.getSampleRequest = getSampleRequest;
