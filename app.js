@@ -29,10 +29,13 @@ global._config = require('./config/appConfig');
 global._logger = require('./lib/logger/winstonLogger');
 global._mailer = require('./lib/contact/mailer');
 global._mysqlConnections = require('./lib/db_connect/mysqlConnect');
-global._mongoConnections = require('./lib/db_connect/mongoConnect');
+require('./lib/db_connect/mongoConnect').createConnection(function(connections){
+     global._mongoConnections=connections;
+});
 global._redisConnections = require('./lib/db_connect/redisConnect');
 global._utils = require("./lib/utils");
 //endregion
+
 
 var auth = require('./lib/authenticate/auth');
 //app.use('/v1/', require('./routes')(app));

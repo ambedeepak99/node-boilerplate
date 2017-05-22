@@ -45,7 +45,7 @@ var developmentConfig = {
     },
     redisConfig:{
         testRedisDb:{
-            init:false,
+            init:true,
             host:""
         }
     }

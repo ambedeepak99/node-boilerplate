@@ -3,6 +3,8 @@
  */
 var responseMsgs = _constants.MESSAGES;
 var auth = require('../../lib/authenticate/auth');
+var sampleUtil=require('./sampleUtil');
+var sampleDbCtrl = require('./sampleDbCtrl');
 var sampleCtrl = {};
 //var outFile=require('../../out/index.html');
 /**
@@ -21,7 +23,15 @@ function getSampleRequest(request, response) {
         data.request_query_data[key] = request.query[key];
     }
     data.token=auth.generateToken(data);
-    _utils.send(response, responseMsgs.SUCCESS.code, responseMsgs.SUCCESS.message, data);
+    sampleDbCtrl.insertData([{test:"hello"},{test:"hello2"}],function(err,result){
+        if(err){
+            _utils.send(response, responseMsgs.SERVER_ERROR.code, responseMsgs.SERVER_ERROR.message, null);
+        }else{
+            _utils.send(response, responseMsgs.SUCCESS.code, responseMsgs.SUCCESS.message, data);
+        }
+
+    });
+
 };
 sampleCtrl.getSampleRequest = getSampleRequest;
 /**
