@@ -20,6 +20,7 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //region global variable
+global.mongoObjectId = require('mongodb').ObjectID;
 global._globalDir = __dirname;
 global._fs = require('fs');
 global._ = require('underscore');
@@ -29,8 +30,8 @@ global._config = require('./config/appConfig');
 global._logger = require('./lib/logger/winstonLogger');
 global._mailer = require('./lib/contact/mailer');
 global._mysqlConnections = require('./lib/db_connect/mysqlConnect');
-require('./lib/db_connect/mongoConnect').createConnection(function(connections){
-     global._mongoConnections=connections;
+require('./lib/db_connect/mongoConnect').createConnection(function (connections) {
+    global._mongoConnections = connections;
 });
 global._redisConnections = require('./lib/db_connect/redisConnect');
 global._utils = require("./lib/utils");

@@ -1,15 +1,15 @@
 /**
  * Created by deepak on 5/17/2017.
  */
-
+var filePath = "sample_module/sampleDbCtrl.js";
 var dbCtrl = {};
 /**
  * query mongo db to insert data
  * @param data
  * @param callback
  */
-function insertData(data, callback) {
-    var functionName = __dirname+">>insertData >>";
+function dbInsertData(data, callback) {
+    var functionName = _utils.formatFunctionName(filePath, dbInsertData.name);
     if (!_utils.isEmpty(data)) {
         var collection = _mongoConnections.testMongoDb.db.collection(_mongoConnections.testMongoDb.collectionList.test);
         var insertData = [];
@@ -22,7 +22,7 @@ function insertData(data, callback) {
         collection.insert(insertData, function (err, result) {
             if (err) {
                 _logger.error(functionName + "Insert error : ", err);
-                callback("DB Error", null);
+                callback(_constants.DB_ERROR, null);
             }
             else {
                 _logger.info(functionName + "Number of records inserted: " + result.insertedCount);
@@ -36,16 +36,75 @@ function insertData(data, callback) {
 
 
 }
-dbCtrl.insertData = insertData;
+dbCtrl.dbInsertData = dbInsertData;
 
-function updateData(data, callback) {
-
+function dbUpdateData(data, callback) {
+    var functionName = _utils.formatFunctionName(filePath, dbUpdateData.name);
+    var query = { _id: mongoObjectId(data.id) };
+    var newvalues = data.updateData;
+    var collection = _mongoConnections.testMongoDb.db.collection(_mongoConnections.testMongoDb.collectionList.test);
+    collection.update(query, newvalues, function (err, res) {
+        if (err) {
+            _logger.error(functionName + "Update error : ", err);
+            callback(_constants.DB_ERROR, null);
+        } else {
+            _logger.info(functionName + "Number of records updated: " + res.result.nModified);
+            callback(null, res.result.nModified);
+        }
+    });
 }
-dbCtrl.updateData = updateData;
+dbCtrl.dbUpdateData = dbUpdateData;
 
-function findData(data, callback) {
-
+function dbSelectAllData(data, callback) {
+    var functionName = _utils.formatFunctionName(filePath, dbSelectAllData.name);
+    var collection = _mongoConnections.testMongoDb.db.collection(_mongoConnections.testMongoDb.collectionList.test);
+    collection.find().toArray(function (err, result) {
+        if (err) {
+            _logger.error(functionName + "Select error : ", err);
+            callback(_constants.DB_ERROR, null);
+        } else {
+            callback(null, result);
+        }
+    });
 }
-dbCtrl.findData = findData;
+dbCtrl.dbSelectAllData = dbSelectAllData;
 
-module.exports=dbCtrl;
+function dbSelectDataWithId(data, callback) {
+    var functionName = _utils.formatFunctionName(filePath, dbSelectDataWithId.name);
+    var collection = _mongoConnections.testMongoDb.db.collection(_mongoConnections.testMongoDb.collectionList.test);
+    var query = {
+        _id: mongoObjectId(data.id)
+    }
+    collection.find(query).toArray(function (err, result) {
+        if (err) {
+            _logger.error(functionName + "Select error : ", err);
+            callback(_constants.DB_ERROR, null);
+        } else {
+            callback(null, result);
+        }
+    });
+}
+dbCtrl.dbSelectDataWithId = dbSelectDataWithId;
+
+function dbDeleteData(data, callback) {
+    var functionName = _utils.formatFunctionName(filePath, dbSelectDataWithId.name);
+    var collection = _mongoConnections.testMongoDb.db.collection(_mongoConnections.testMongoDb.collectionList.test);
+    var query = {};
+    if(data.id){
+        query={
+            _id: mongoObjectId(data.id)
+        }
+    }
+    collection.remove(query, function (err, obj) {
+        if (err) {
+            _logger.error(functionName + "Delete error : ", err);
+            callback(_constants.DB_ERROR, null);
+        } else {
+            _logger.info(functionName + "Number of records deleted: " + obj.result.n);
+            callback(null, obj.result.n);
+        }
+    });
+}
+dbCtrl.dbDeleteData = dbDeleteData;
+
+module.exports = dbCtrl;
