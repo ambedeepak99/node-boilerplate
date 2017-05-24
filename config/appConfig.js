@@ -12,6 +12,7 @@ var config = {
     authConfig: {
         basicAlias: "/v1",
         secretKey: "iAmAwesomeFullStackDeveloper",
+        cipherAlgorithm:"aes-256-ctr",
         inactiveTimeFrame: 10,//min
         forceExpireTimeFrame: 60 //min
     },

@@ -40,7 +40,7 @@ dbCtrl.dbInsertData = dbInsertData;
 
 function dbUpdateData(data, callback) {
     var functionName = _utils.formatFunctionName(filePath, dbUpdateData.name);
-    var query = { _id: mongoObjectId(data.id) };
+    var query = { _id: _mongoObjectId(data.id) };
     var newvalues = data.updateData;
     var collection = _mongoConnections.testMongoDb.db.collection(_mongoConnections.testMongoDb.collectionList.test);
     collection.update(query, newvalues, function (err, res) {
@@ -73,7 +73,7 @@ function dbSelectDataWithId(data, callback) {
     var functionName = _utils.formatFunctionName(filePath, dbSelectDataWithId.name);
     var collection = _mongoConnections.testMongoDb.db.collection(_mongoConnections.testMongoDb.collectionList.test);
     var query = {
-        _id: mongoObjectId(data.id)
+        _id: _mongoObjectId(data.id)
     }
     collection.find(query).toArray(function (err, result) {
         if (err) {
@@ -92,7 +92,7 @@ function dbDeleteData(data, callback) {
     var query = {};
     if(data.id){
         query={
-            _id: mongoObjectId(data.id)
+            _id: _mongoObjectId(data.id)
         }
     }
     collection.remove(query, function (err, obj) {
