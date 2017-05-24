@@ -9,13 +9,14 @@ var mergeJSON = require('deepmerge');
  * @type {{authAlias: string, logConfig: {datePattern: string}}}
  */
 var config = {
-    authConfig:{
-        basicAlias:"/v1",
-        secretKey:"iAmAwesomeFullStackDeveloper",
-        expireTimeFrame:15//min
+    authConfig: {
+        basicAlias: "/v1",
+        secretKey: "iAmAwesomeFullStackDeveloper",
+        inactiveTimeFrame: 10,//min
+        forceExpireTimeFrame: 60 //min
     },
-    logConfig:{
-        datePattern:".yyyy-MM-dd.HH-mm"
+    logConfig: {
+        datePattern: ".yyyy-MM-dd.HH-mm"
     }
 };
 

@@ -26,10 +26,10 @@ function getSampleRequest(request, response) {
         data.request_query_data[key] = request.query[key];
     }
     data.token = auth.generateToken(data);
-//    _utils.send(response, {
-//        type: responseMsgs.SUCCESS,
-//        data: data
-//    });
+    _utils.send(response, {
+        type: responseMsgs.SUCCESS,
+        data: data
+    });
 
 };
 sampleCtrl.getSampleRequest = getSampleRequest;
