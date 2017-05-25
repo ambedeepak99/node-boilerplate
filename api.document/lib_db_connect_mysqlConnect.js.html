@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: lib/db_connect/mysqlConnect.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: lib/db_connect/mysqlConnect.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Created by deepak on 5/6/2017.
+ */
+var mysql = require('mysql');
+var mysqlConfig = _config.mysqlConfig;
+var connectionName = "** MYSQL ** ";
+
+//region connection initialization
+function initializeConnection(config) {
+    function addDisconnectHandler(connection) {
+        connection.on("error", function (error) {
+            if (error instanceof Error) {
+                if (error.code === "PROTOCOL_CONNECTION_LOST") {
+                    _logger.error("Connection lost for HOST:" + config.host + " and DATABASE:" + database);
+                    _logger.error(error.stack);
+                    return initializeConnection(config);
+                } else if (error.fatal) {
+                    _logger.error(error);
+                } else {
+                    _logger.error(error.stack);
+                }
+            }
+        });
+    }
+
+    var connection = mysql.createConnection(config);
+    // Add handlers.
+    addDisconnectHandler(connection);
+    connection.connect();
+    //_logger.info(connectionName+"Connection established for " + config.key + ", HOST:" + config.host + ", DATABASE:" + config.database);
+    _logger.info(connectionName+"Initializing connection for " + config.key + ", HOST:" + config.host + ", DATABASE:" + config.database);
+    return connection;
+}
+
+function initializePoolConnection(config) {
+    var pool = mysql.createPool(config);
+    pool.on('acquire', function (connection) {
+        _logger.debug(connectionName + "Pool Connection %d acquired for " + config.key + ", HOST:" + config.host + " and DATABASE:" + database, connection.threadId);
+    });
+    pool.on('enqueue', function () {
+        _logger.error(connectionName + "Waiting for available pool connection slot for " + config.key + ", HOST:" + config.host + " and DATABASE:" + database);
+    });
+    pool.on('release', function (connection) {
+        _logger.debug(connectionName + "Pool connection %d released for " + config.key + ", HOST:" + config.host + " and DATABASE:" + database, connection.threadId);
+    });
+    _logger.info(connectionName + "Initializing pool connection for " + config.key + ", HOST:" + config.host + ", DATABASE:" + config.database);
+    return pool;
+}
+
+function endConnectionGracefully(connection) {
+    connection.end(function (err) {
+        _logger.debug("The connection is terminated now");
+    });
+}
+
+function endPoolGracefully(pool) {
+    pool.end(function (err) {
+        _logger.debug("all connections in the pool have ended");
+    });
+}
+
+//endregion
+
+//region create connection object for mysql config
+
+function createConnection() {
+    var connectionWrapper = {};
+    for (var key in mysqlConfig) {
+        var config = mysqlConfig[key];
+        if (config.init == true) {
+            if (config.port == "")
+                delete config.port;
+            config.key = key;
+            connectionWrapper[key] = {
+                connection: initializeConnection(config),
+                pool: initializePoolConnection(config)
+            };
+            keepAlive(connectionWrapper[key].connection, config);
+        }
+        else {
+            _logger.info(connectionName + "Connection initialization for " + key + " is false. HOST:" + config.host + ", DATABASE:" + config.database);
+        }
+    }
+    return connectionWrapper;
+}
+
+function keepAlive(connection, config) {
+    if (connection) {
+        connection.query('select 1', [], function (err, result) {
+            _logger.info(connectionName + "keep live connection ID:: " + connection.threadId + " for " + config.key + ", HOST:" + config.host + ", DATABASE:" + config.database);
+            if (err) {
+                _logger.error(connectionName + "Keep a live query failed. HOST:" + config.host + ", DATABASE:" + config.database);
+                _logger.error(err);
+            }
+            setTimeout(function () {
+                keepAlive(connection, config);
+            }, 1000 * 60 * 5);
+        });
+    }
+}
+
+module.exports = createConnection();
+//endregion
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#authenticate">authenticate</a></li><li><a href="global.html#checkRequiredMissingParam">checkRequiredMissingParam</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#dbInsertData">dbInsertData</a></li><li><a href="global.html#filePath">filePath</a></li><li><a href="global.html#findMissingKeyInObject">findMissingKeyInObject</a></li><li><a href="global.html#generateToken">generateToken</a></li><li><a href="global.html#getSampleRequest">getSampleRequest</a></li><li><a href="global.html#isArray">isArray</a></li><li><a href="global.html#isEmpty">isEmpty</a></li><li><a href="global.html#jwt">jwt</a></li><li><a href="global.html#mongoClient">mongoClient</a></li><li><a href="global.html#mysql">mysql</a></li><li><a href="global.html#nodemailer">nodemailer</a></li><li><a href="global.html#postSampleRequest">postSampleRequest</a></li><li><a href="global.html#redis">redis</a></li><li><a href="global.html#send">send</a></li><li><a href="global.html#utils">utils</a></li><li><a href="global.html#validateResponseCode">validateResponseCode</a></li><li><a href="global.html#winston">winston</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu May 25 2017 11:47:46 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

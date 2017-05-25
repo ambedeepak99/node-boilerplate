@@ -27,5 +27,10 @@
     "underscore": "^1.8.3",
     "winston": "^2.3.1",
     "winston-daily-rotate-file": "^1.4.6"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-jsdoc": "^2.1.0"
   }
 }
