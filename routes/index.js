@@ -1,3 +1,8 @@
+/**
+ * @namespace routes
+ * @description initializing normal and authenticate routes.
+ * @author deepak.ambekar [5/25/2017].
+ */
 module.exports = function (app) {
 
     var authConfig = _config.authConfig;
@@ -5,7 +10,8 @@ module.exports = function (app) {
     _logger.debug("Initializing Routes");
 
     //region Normal Route
-    app.use('/sample/', require('./routes_helper/sampleRoute'));
+
+    app.use('/login/', require('./routes_helper/loginRoute'));
 
     //endregion
 

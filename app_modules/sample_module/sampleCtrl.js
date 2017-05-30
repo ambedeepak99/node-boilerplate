@@ -1,14 +1,14 @@
 /**
- * Created by deepak on 5/10/2017.
+ * @module sample_module/sampleCtrl
+ * @description controller function of sample module
+ * @author deepak.ambekar [5/25/2017].
  */
 var filePath = "sample_module/sampleCtrl.js";
 
 var responseMsgs = _constants.RESPONSE_MESSAGES;
 var auth = require('../../lib/authenticate/auth');
 var sampleUtil = require('./sampleUtil');
-var sampleDbCtrl = require('./sampleDbCtrl');
 var sampleCtrl = {};
-//var outFile=require('../../out/index.html');
 /**
  * Sample get request
  * @param request
@@ -19,13 +19,11 @@ function getSampleRequest(request, response) {
     var data = {
         service_type: "SAMPLE GET REQUEST",
         param: request.params["requestParam"],
-        request_query_data: {
-        }
+        request_query_data: {}
     };
     for (var key in request.query) {
         data.request_query_data[key] = request.query[key];
     }
-    data.token = auth.generateToken(data);
     _utils.send(response, {
         type: responseMsgs.SUCCESS,
         data: data
@@ -43,7 +41,6 @@ function postSampleRequest(request, response) {
         service_type: "SAMPLE POST REQUEST",
         post_data: request.body
     };
-    data.token = auth.generateToken(data);
     _utils.send(response, {
         type: responseMsgs.SUCCESS,
         data: data

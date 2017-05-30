@@ -1,5 +1,7 @@
 /**
- * Created by deepak on 5/25/2017.
+ * @module gruntfile
+ * @description jsdoc-grunt
+ * @author deepak.ambekar [5/25/2017].
  */
 module.exports = function (grunt) {
     var myPkg = grunt.file.readJSON('package.json');
@@ -7,9 +9,12 @@ module.exports = function (grunt) {
         pkg: myPkg,
         jsdoc: {
             dist: {
-                src: ['app_modules/**/*.js', 'lib/**/*.js', 'README.md', 'app.js', '/routes/**/*.js'],
+                src: ['app_modules/**/*.js', 'lib/**/*.js', 'README.md', 'app.js'],
                 options: {
-                    destination: 'api.document'
+                    destination: 'docs',
+//                    template : "node_modules/ink-docstrap/template",
+//                    configure : "node_modules/ink-docstrap/template/jsdoc.conf.json",
+                    template : "node_modules/docdash"
                 }
             }
         }
@@ -17,6 +22,6 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-jsdoc');
 
-    grunt.registerTask('default', ['jsdoc']);
+    grunt.registerTask('default', ['lint','jsdoc']);
 };
 

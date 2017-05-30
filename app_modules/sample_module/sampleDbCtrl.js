@@ -1,5 +1,7 @@
 /**
- * Created by deepak on 5/17/2017.
+ * @module sample_module/sampleDbCtrl
+ * @description database controller function of sample module
+ * @author deepak.ambekar [5/25/2017].
  */
 var filePath = "sample_module/sampleDbCtrl.js";
 var dbCtrl = {};

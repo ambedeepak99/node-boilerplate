@@ -1,5 +1,8 @@
 /**
- * Created by deepak on 5/6/2017.
+ * @namespace production_config
+ * @memberof config
+ * @description production config file
+ * @author deepak.ambekar [5/25/2017].
  */
 
 /**
@@ -9,43 +12,44 @@
 var productionConfig = {
     logConfig: {
         logLevel: "info",
-        errorLogPath: "./logs",
+        errorLogPath: "./logs/error",
         infoLogPath:"./logs"
     },
     mysqlConfig: {
         master_database: {
             init: false,
             host: "localhost",
-            port:"3306",
+            port: "3307",
             connectionLimit: 20,
             user: "root",
-            password: "",
+            password: "root",
             database: "test",
             multipleStatements: true
         },
         slave_database: {
             init: false,
             host: "localhost",
-            port:"3306",
+            port: "3307",
             connectionLimit: 20,
             user: "root",
-            password: "",
+            password: "root",
             database: "test",
             multipleStatements: true
         }
     },
     mongoConfig: {
         testMongoDb: {
-            init: false,
-            host: "mongodb://localhost:27017/mongo_done",
+            init: true,
+            host: "mongodb://localhost:27017/testMongoDb",
             collection: {
-                test: "test"
+                test: "test",
+                login: "login"
             }
         }
     },
     redisConfig: {
         testRedisDb: {
-            init: true,
+            init: false,
             host: ""
         }
     }

@@ -1,6 +1,10 @@
 /**
- * Created by deepak on 5/6/2017.
+ * @namespace development_config
+ * @memberof config
+ * @description development config file
+ * @author deepak.ambekar [5/25/2017].
  */
+
 
 /**
  *
@@ -10,13 +14,13 @@ var developmentConfig = {
     logConfig: {
         logLevel: "debug",
         errorLogPath: "./logs/error",
-        infoLogPath:"./logs"
+        infoLogPath: "./logs"
     },
     mysqlConfig: {
         master_database: {
-            init:false,
+            init: false,
             host: "localhost",
-            port:"3307",
+            port: "3307",
             connectionLimit: 20,
             user: "root",
             password: "root",
@@ -24,9 +28,9 @@ var developmentConfig = {
             multipleStatements: true
         },
         slave_database: {
-            init:false,
+            init: false,
             host: "localhost",
-            port:"3307",
+            port: "3307",
             connectionLimit: 20,
             user: "root",
             password: "root",
@@ -36,19 +40,20 @@ var developmentConfig = {
     },
     mongoConfig: {
         testMongoDb: {
-            init:true,
+            init: true,
             host: "mongodb://localhost:27017/testMongoDb",
             collection: {
-                test:"test"
+                test: "test",
+                login: "login"
             }
         }
     },
-    redisConfig:{
-        testRedisDb:{
-            init:true,
-            host:""
+    redisConfig: {
+        testRedisDb: {
+            init: false,
+            host: ""
         }
     }
 };
 
-module.exports=developmentConfig;
+module.exports = developmentConfig;

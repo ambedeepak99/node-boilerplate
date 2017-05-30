@@ -1,3 +1,8 @@
+/**
+ * @namespace app
+ * @description index file of application. global variable should be define in this file.
+ * @author deepak.ambekar [5/25/2017].
+ */
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');

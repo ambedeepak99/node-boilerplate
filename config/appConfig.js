@@ -1,5 +1,7 @@
 /**
- * Created by deepak on 5/6/2017.
+ * @namespace config
+ * @description config file
+ * @author deepak.ambekar [5/25/2017].
  */
 var devConfig = require('./development');
 var prodConfig = require('./production');
@@ -13,8 +15,8 @@ var config = {
         basicAlias: "/v1",
         secretKey: "iAmAwesomeFullStackDeveloper",
         cipherAlgorithm:"aes-256-ctr",
-        inactiveTimeFrame: 10,//min
-        forceExpireTimeFrame: 60 //min
+        inactiveTimeFrame: 20,//min
+        forceExpireTimeFrame: 2*60 //min
     },
     logConfig: {
         datePattern: ".yyyy-MM-dd.HH-mm"
