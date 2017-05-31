@@ -1,13 +1,12 @@
 Welcome to Node Boilerplate!
 ===================
 
-This API provide following functionalities:
-
- - Signin and Signup for the users.
- - Token based API authentication.
- - Logs of server activity.
- - Store user password in mongoDB in encrypted form.
- - Expire user session after predefine time mention in config.
+ - JWT Authentication.
+ - Winston Logger.
+ - Setting up mongodb connection with example.
+ - Setting up mysql connection (example will be added soon).
+ - Setting up radis connection (example will be added soon).
+ - Code documentation using jsdoc3.
  
 ----------
 
@@ -67,4 +66,4 @@ Just run the following command after installing grunt dependencies
 $ grunt jsdoc
 ```
 
-Please check the [postman collection](https://www.getpostman.com/collections/b0db2416277d3e8c9f43) of API service.
+Please check the [postman collection](https://www.getpostman.com/collections/b0db2416277d3e8c9f43) for sample API service example.

@@ -22,6 +22,6 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-jsdoc');
 
-    grunt.registerTask('default', ['lint','jsdoc']);
+    grunt.registerTask('default', ['jsdoc']);
 };
 
